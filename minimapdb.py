@@ -1,11 +1,10 @@
 from __future__ import with_statement
 import sqlite3
-from flask import Flask, request, session, g, redirect, url_for, \
-        abort, render_template, flash, json
 from contextlib import closing
+from flask import Flask, request, Response, g, json, render_template
 
-DATABASE = 'data.db'
 DEBUG = True
+DATABASE = 'data.db'
 SECRET_KEY = 'dev key'
 
 app = Flask(__name__)
@@ -29,39 +28,59 @@ def before_request():
 def teardown_request(exception):
     g.db.close()
 
+def query_db(query, args=(), one=False):
+    cur = g.db.execute(query, args)
+    rv = [dict((cur.description[idx][0],value)
+        for idx,value in enumerate(row)) for row in cur.fetchall()]
+    return (rv[0] if rv else None) if one else rv
+
 
 @app.route('/')
 def list_waypoints():
-    return 'home!'
+    return render_template('index.html')
 
 @app.route('/api/points', methods=['GET'])
 def api_points():
-    return 'list of '+url_for('api_points')
+    points = query_db('select * from waypoints order by name')
+    return Response(json.dumps(points),mimetype='application/json')
+
+@app.route('/api/points/<pId>', methods=['GET'])
+def api_point(pId):
+    point = query_db('select * from waypoints where id=?', [pId], one=True)
+    if point is None:
+        return Response(status=404)
+    else:
+        return Response(json.dumps(point), mimetype='application/json')
 
 @app.route('/api/points', methods=['POST'])
 def api_create_point():
     if( request.headers['Content-Type'] != 'application/json'):
-        return "415 Unsupported Media Type"
+        return Response('Unsupported Media Type', status=415)
 
     data = request.json
     g.db.execute('insert into waypoints (name,color,x,z,y) values (?,?,?,?,?)',
-        [data['name'], data['color'], data['x'], data['z'], data['y']])
+        [data['name'],data['color'],data['x'],data['z'],data['y']])
     g.db.commit()
 
-    cur = g.db.execute('select name,color,x,z,y from waypoints where rowid=last_insert_rowid()')
-    out = dict(name=row[0],color=row[1],x=row[2],z=row[3],y=row[4])
-
-    resp = Response(json.dumps(out), status=200,mimetype='application/json')
-    return resp;
-
-@app.route('/api/points/<pId>', methods=['GET'])
-def api_point(pId):
-    return 'waypoint: ' + pId
+    point = query_db('select * from waypoints where rowid=last_insert_rowid()',one=True)
+    return Response(json.dumps(point), mimetype='application/json')
 
 @app.route('/api/points/<pId>', methods=['PUT'])
 def api_update_point(pId):
-    return 'updating point: '+pId
+    if( request.headers['Content-Type'] != 'application/json'):
+        return Response('Unsupported Media Type', status=415)
 
+    data = request.json
+    g.db.execute('update waypoints set name=?,color=?,x=?,z=?,y=? where id=?',
+            [data['name'],data['color'],data['x'],data['z'],data['y'],data['id']])
+    g.db.commit()
+    return Response(json.dumps(data), status=200,mimetype='application/json')
+
+@app.route('/api/points/<pId>', methods=['DELETE'])
+def api_delete_point(pId):
+    g.db.execute('delete from waypoints where id=?', [pId])
+    g.db.commit()
+    return Response(status=200)
 
 if __name__ == '__main__':
     app.run()
