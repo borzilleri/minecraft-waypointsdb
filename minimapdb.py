@@ -36,8 +36,12 @@ def query_db(query, args=(), one=False):
 
 
 @app.route('/')
-def list_waypoints():
+def index():
     return render_template('index.html')
+
+@app.route('/template/<path:template>')
+def js_template(template):
+    return render_template(template)
 
 @app.route('/api/points', methods=['GET'])
 def api_points():
