@@ -54,7 +54,7 @@ function($, _, Backbone, Collection, Point_View) {
 					type: 'POST'
 			})
 			.done(function(path) {
-				window.location.pathname += '/download'+path;
+				window.location.pathname += 'download'+path;
 			});
 
 			return false;
