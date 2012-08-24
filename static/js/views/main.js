@@ -1,16 +1,17 @@
 define([
 	'jquery', 'underscore', 'backbone',
-	'text!/template/main.html',
 	'waypoints',
-	'views/point',
+	'views/point'
 ],
-function($, _, Backbone, Template, Collection, Point_View) {
+function($, _, Backbone, Collection, Point_View) {
 	return Backbone.View.extend({
-		template: Template,
-		id: 'page-content',
+		el: $('body'),
+		events: {
+			'click .add': 'onAddPoint',
+			'click .download-points': 'onDownload'
+		},
 		initialize: function() {
 			_(this).bindAll();
-			this.$el.html(this.template());
 			this.collection = new Collection();
 			this.collection
 				.bind('add', this.addOne)
@@ -21,12 +22,42 @@ function($, _, Backbone, Template, Collection, Point_View) {
 		render: function() {
 			return this;
 		},
+		onAddPoint: function(e) {
+			this.collection.add({});
+			return false;
+		},
 		addOne: function(model) {
 			model.view = new Point_View({model:model});
-			this.$('.point-list').append(model.view.render().el);
+			var point = model.view.render().el,
+					$list = this.$('#point-list');
+			if( !model.id ) {
+				$list.prepend(point);
+				$list.find('.accordion-body.in').collapse('hide');
+				$list.find(':first-child .accordion-body').collapse('show');
+			}
+			else {
+				$list.append(point);
+			}
 		},
 		addAll: function() {
 			this.collection.each(this.addOne);
+		},
+		onDownload: function() {
+			var ids = _(this.collection.filter(function(model) {
+				return model.get('download');
+			})).pluck('id');
+
+			$.ajax({
+					url:'download',
+					contentType: 'application/json',
+					data: JSON.stringify(ids),
+					type: 'POST'
+			})
+			.done(function(path) {
+				window.location.pathname += '/download'+path;
+			});
+
+			return false;
 		}
 	});
 });

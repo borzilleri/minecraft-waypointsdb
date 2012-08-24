@@ -1,7 +1,9 @@
 from __future__ import with_statement
 import sqlite3
+import os
 from contextlib import closing
-from flask import Flask, request, Response, g, json, render_template
+from flask import Flask, request, Response, make_response, g, json, render_template
+from tempfile import mkstemp
 
 DEBUG = True
 DATABASE = 'data.db'
@@ -43,6 +45,31 @@ def index():
 def js_template(template):
     return render_template(template)
 
+@app.route('/download', methods=['POST'])
+def build_file():
+    data = request.json
+    points = query_db('select * from waypoints where id in (%s)'%
+            ','.join('?'*len(data)),data)
+    out = []
+    for point in points:
+        out.append('%s:%s:%s:%s:true:%s'%
+            (point['name'],point['x'],point['y'],point['z'],point['color'][1:]))
+    fd,path = mkstemp()
+    f = os.fdopen(fd,'w')
+    f.write("\n".join(out));
+    f.close();
+    return path;
+
+@app.route('/download/<path:filename>')
+def download(filename):
+    filename = '/'+filename
+    f = open('/'+filename);
+    resp = make_response(f.read())
+    resp.headers['Content-Disposition'] = 'attachment; filename=mc.rampant.io.DIM0.points'
+    f.close();
+    os.remove(filename);
+    return resp;
+
 @app.route('/api/points', methods=['GET'])
 def api_points():
     points = query_db('select * from waypoints order by name')
@@ -76,7 +103,7 @@ def api_update_point(pId):
 
     data = request.json
     g.db.execute('update waypoints set name=?,color=?,x=?,z=?,y=? where id=?',
-            [data['name'],data['color'],data['x'],data['z'],data['y'],data['id']])
+            [data['name'],data['color'],data['x'],data['z'],data['y'],pId])
     g.db.commit()
     return Response(json.dumps(data), status=200,mimetype='application/json')
 

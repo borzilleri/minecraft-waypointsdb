@@ -18,8 +18,14 @@
  * ========================================================== */
 
 
-!function ($) {
-
+(function(factory) {
+	if( typeof define === 'function' && define.amd ) {
+		define(['jquery'], factory);
+	}
+	else {
+		factory( this.jQuery );
+	}
+}(function($) {
   "use strict"; // jshint ;_;
 
 
@@ -99,6 +105,4 @@
       $spy.affix(data)
     })
   })
-
-
-}(window.jQuery);
+}));

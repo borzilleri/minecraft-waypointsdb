@@ -1,12 +1,68 @@
-<div class="accordion-group">
-	<div class="accordion-heading">
-		<a class="accordion-toggle collapsed"
-			data-bind="text: name; attr: {href: divId}"
-			data-toggle="collapse" data-parent="#accordion" href="#"></a>
-	</div>
-	<div class="accordion-body collapse">
-		<div class="accordion-inner">
-			Accordion Body
-		</div>
+<div class="accordion-heading">
+	<div class="swatch" data-bind="style: {'background-color': color}"></div>
+	<a class="accordion-toggle collapsed"
+		data-bind="text: name, attr: {href: divIdHash}"
+		data-toggle="collapse" data-parent="#point-list" href="#"></a>
+	<button class="btn btn-small pull-right download"
+		data-bind="css: { 'btn-success': download, 'btn-danger': !download()}">
+		<i class="icon-download"></i>
+	</button>
+	<a data-bind="attr: {href: mapUrl}" target="_blank"
+		class="btn btn-small btn-info pull-right"
+		>Map <i class="icon-external-link"></i></a>
+</div>
+<div class="accordion-body collapse" data-bind="attr: {id: divId}">
+	<div class="accordion-inner">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label">Name</label>
+				<div class="controls">
+					<input type="text" data-bind="value: name">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Color</label>
+				<div class="controls">
+					<div class="input-append color" data-color-format="hex"
+						data-bind="attr: {'data-color': color}">
+						<input type="text" class="span2" data-bind="value:color">
+						<span class="add-on">
+							<i data-bind="style:{'background-color':color}"></i></span>
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Coordinates</label>
+				<div class="controls">
+					<div class="input-append">
+						<input class="input-small" type="number" placeholder="x"
+						data-bind="value:x">
+						<span class="add-on">X</span>
+					</div>
+					<div class="input-append">
+						<input class="input-small" type="number" placeholder="z"
+						data-bind="value:z">
+						<span class="add-on">Z</span>
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Altitude</label>
+				<div class="controls">
+					<div class="input-append">
+						<input class="span1" type="number" placeholder="y" max="256" min="1"
+						data-bind="value:y">
+						<span class="add-on">Y</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary save">Save</button>
+				<button type="button" class="btn btn cancel"
+					data-bind="visible: id">Cancel</button>
+				<button type="button"
+					class="btn btn-danger pull-right delete">Delete</button>
+			</div>
+		</form>
 	</div>
 </div>
