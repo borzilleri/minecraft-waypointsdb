@@ -1,0 +1,2 @@
+recursive-include waypointsdb/templates *
+recursive-include waypointsdb/static *

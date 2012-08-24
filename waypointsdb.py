@@ -1,6 +1,6 @@
 from __future__ import with_statement
-import sqlite3
 import os
+import sqlite3
 from contextlib import closing
 from flask import Flask, request, Response, make_response, g, json, render_template
 from tempfile import mkstemp
@@ -11,7 +11,7 @@ SECRET_KEY = 'dev key'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config.from_envvar('MINIMAPDB_SETTINGS', silent=True)
+app.config.from_envvar('WAYPOINTSDB_SETTINGS', silent=True)
 
 def connect_db():
     return sqlite3.connect(app.config['DATABASE']);
