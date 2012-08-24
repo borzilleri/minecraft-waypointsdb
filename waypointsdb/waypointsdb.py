@@ -39,7 +39,7 @@ def query_db(query, args=(), one=False):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', scriptRoot = request.script_root)
 
 @app.route('/template/<path:template>')
 def js_template(template):

@@ -15,5 +15,5 @@ def deploy():
     with cd(tmpDir):
         run('/srv/flask/waypointsdb/env/bin/python setup.py install')
     run('rm -rf %s /tmp/waypointsdb.tar.gz'%tmpDir)
-    run('touch /srv/flask/waypointsdb/application.wsgi')
+    run('touch /etc/uwsgi/apps-available/waypointsdb.ini')
 

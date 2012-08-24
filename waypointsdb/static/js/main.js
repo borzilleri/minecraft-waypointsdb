@@ -6,7 +6,8 @@ requirejs.config({
 		knockout: 'lib/knockout',
 		knockback: 'lib/knockback',
 		text: 'lib/text',
-		bootstrap: 'lib/bootstrap'
+		bootstrap: 'lib/bootstrap',
+		template: window.SCRIPT_ROOT+'/template'
 	},
 	shim: {
 		'underscore': {

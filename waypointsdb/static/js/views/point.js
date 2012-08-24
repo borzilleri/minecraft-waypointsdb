@@ -1,7 +1,7 @@
 define([
 	'jquery', 'underscore', 'backbone',
 	'knockout', 'knockback',
-	'text!/template/point.html',
+	'text!template/point.html',
 	'bootstrap/collapse',
 	'bootstrap/colorpicker'
 ],
