@@ -11,7 +11,7 @@ SECRET_KEY = 'dev key'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config.from_envvar('WAYPOINTSDB_SETTINGS', silent=True)
+app.config.from_envvar('WAYPOINTSDB_CONFIG', silent=True)
 
 def connect_db():
     return sqlite3.connect(app.config['DATABASE']);
