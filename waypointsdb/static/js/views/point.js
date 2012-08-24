@@ -51,18 +51,22 @@ function($, _, Backbone, ko, kb, Template) {
 			});
 			return this;
 		},
+		collapse: function() {
+			this.$('.accordion-body').collapse('hide');
+		},
 		onSubmit: function(e) {
+			var self = this;
 			e.preventDefault();
-			this.model.save();
+			this.model.save(null,{
+				success: this.collapse
+			});
 			return false;
 		},
 		onCancel: function(e) {
 			var self = this;
 			e.preventDefault();
 			this.model.fetch({
-				success: function(model) {
-					self.$('.accordion-body').collapse('hide');
-				}
+				success: this.collapse
 			});
 			return false;
 		},

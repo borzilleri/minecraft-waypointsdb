@@ -1,2 +1,3 @@
+include waypointsdb/schema.sql
 recursive-include waypointsdb/templates *
 recursive-include waypointsdb/static *

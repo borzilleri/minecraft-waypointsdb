@@ -9,10 +9,11 @@ def pack():
 def deploy():
     dist = local('python setup.py --fullname', capture=True).strip()
     put('dist/%s.tar.gz' % dist, '/tmp/waypointsdb.tar.gz')
-    run('mkdir /tmp/waypointsdb')
-    with cd('/tmp/waypointsdb'):
+    tmpDir = '/tmp/%s'%dist
+    with cd('/tmp'):
         run('tar xf /tmp/waypointsdb.tar.gz')
+    with cd(tmpDir):
         run('/srv/flask/waypointsdb/env/bin/python setup.py install')
-    run('rm -rf /tmp/waypointsdb /tmp/waypointsdb.tar.gz')
-    run('touch /srv/flask/waypointsdb/waypointsdb.wsgi')
+    run('rm -rf %s /tmp/waypointsdb.tar.gz'%tmpDir)
+    run('touch /srv/flask/waypointsdb/application.wsgi')
 
