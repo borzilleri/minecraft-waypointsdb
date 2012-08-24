@@ -1,7 +1,8 @@
 requirejs.config({
 	paths: {
 		jquery: 'lib/jquery',
-		underscore: 'lib/underscore',
+		lodash: 'lib/lodash',
+		underscore: 'lib/lodash',
 		backbone: 'lib/backbone',
 		knockout: 'lib/knockout',
 		knockback: 'lib/knockback',
@@ -10,9 +11,6 @@ requirejs.config({
 		template: window.SCRIPT_ROOT+'/template'
 	},
 	shim: {
-		'underscore': {
-			exports: '_'
-		},
 		'backbone': {
 			deps: ['jquery','underscore'],
 			exports: 'Backbone'
@@ -25,7 +23,7 @@ requirejs.config({
 });
 
 require([
-		'jquery', 'underscore', 'backbone',	'app'
+		'jquery', 'underscore', 'backbone',	'router'
 ],
 function($, _, Backbone, Router) {
 	$(function() {

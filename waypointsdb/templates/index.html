@@ -1,28 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="pragma" content="no-cache">
-		<title>Waypoints Database</title>
-		<link href="{{ url_for('static', filename='css/style.css') }}"
-			rel="stylesheet">
-		<script type="text/javascript">
-			var SCRIPT_ROOT = "{{scriptRoot}}";
-		</script>
-		<script data-main="{{ url_for('static',filename='js/main.js') }}"
-			src="{{ url_for('static',filename='js/lib/require.js') }}"></script>
+		<title>waypoints database</title>
+		<link href="{{url_for('static',filename='css/style.css')}}"
+		rel="stylesheet">
+		<script type="text/javascript">var SCRIPT_ROOT = "{{scriptRoot}}";</script>
+		<script data-main="{{ url_for('static',filename='js/app.js')}}"
+			src="{{url_for('static',filename='js/lib/require.js')}}"></script>
 	</head>
 	<body>
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<span class="brand">Minimap Waypoints Database</span>
-					<ul class="nav pull-right">
-						<li><button class="add btn btn-small">Add Point</button></li>
-						<li><button
-							class="btn btn-small download-points">Download Points</button>
-						</li>
-					</ul>
+					<div class="row">
+						<div class="span8 offset2">
+							<a class="brand" href="/">Minimap Waypoints Database</a>
+							<ul class="nav">
+								<li><a href="/about">About</a></li>
+								<li><a href="#" class="add">Add Waypoint</a></li>
+							</ul>
+							<button class="btn btn-small pull-right download-points"
+								>Download Points</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

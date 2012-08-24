@@ -11,28 +11,30 @@
 */
 
 
-(function() {
-  var Backbone, Knockback, kb, ko, _,
+define(['underscore','backbone','knockout'], function(_, Backbone, ko) {
+//(function() {
+  //var Backbone, Knockback, kb, ko, _,
+  var KNockback, kb,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  if (typeof require !== 'undefined') {
-    try {
-      _ = require('lodash');
-    } catch (e) {
-      _ = require('underscore');
-    }
-  } else {
-    _ = this._;
-  }
+  //if (typeof require !== 'undefined') {
+    //try {
+      //_ = require('lodash');
+    //} catch (e) {
+      //_ = require('underscore');
+    //}
+  //} else {
+    //_ = this._;
+  //}
 
-  if (_ && (_.hasOwnProperty('_'))) {
-    _ = _._;
-  }
+  //if (_ && (_.hasOwnProperty('_'))) {
+    //_ = _._;
+  //}
 
-  Backbone = !this.Backbone && (typeof require !== 'undefined') ? require('backbone') : this.Backbone;
+  //Backbone = !this.Backbone && (typeof require !== 'undefined') ? require('backbone') : this.Backbone;
 
-  ko = !this.ko && (typeof require !== 'undefined') ? require('knockout') : this.ko;
+  //ko = !this.ko && (typeof require !== 'undefined') ? require('knockout') : this.ko;
 
   Knockback = kb = this.Knockback = this.kb = typeof exports !== 'undefined' ? exports : {};
 
@@ -2129,4 +2131,6 @@
     return new kb.ViewModel(model, options);
   };
 
-}).call(this);
+	return kb;
+
+});
