@@ -14,10 +14,6 @@ requirejs.config({
 		'backbone': {
 			deps: ['jquery','underscore'],
 			exports: 'Backbone'
-		},
-		'knockback': {
-			deps: ['backbone', 'knockout'],
-			exports: 'kb'
 		}
 	}
 });
