@@ -88,7 +88,7 @@ def api_point(pId):
     if point is None:
         return Response(status=404)
     else:
-        return ResponGse(json.dumps(point), mimetype='application/json')
+        return Response(json.dumps(point), mimetype='application/json')
 
 @app.route('/api/points', methods=['POST'])
 def api_create_point():
