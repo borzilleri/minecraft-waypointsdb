@@ -9,6 +9,7 @@ DEBUG = True
 DATABASE = 'data.db'
 SECRET_KEY = 'dev key'
 MARKERSDB = "markersDB.js"
+JS_MAIN = "main"
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -40,7 +41,8 @@ def query_db(query, args=(), one=False):
 
 @app.route('/')
 def index():
-    return render_template('index.html', scriptRoot = request.script_root)
+    return render_template('index.html', jsMain=app.config['JS_MAIN'],
+            scriptRoot = request.script_root)
 
 @app.route('/about')
 def about():
