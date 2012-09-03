@@ -50,7 +50,7 @@ function($, _, Backbone, Collection, Point_View) {
 			})).pluck('id');
 
 			$.ajax({
-					url: window.URL_ROOT.'/download',
+					url: window.URL_ROOT+'/download',
 					contentType: 'application/json',
 					data: JSON.stringify(ids),
 					type: 'POST'
