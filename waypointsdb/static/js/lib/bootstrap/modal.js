@@ -20,7 +20,7 @@
 
 (function(factory) {
 	if( typeof define === 'function' && define.amd ) {
-		define(['jquery'], factory);
+		define(['jquery','bootstrap/transition'], factory);
 	}
 	else {
 		factory( this.jQuery );

@@ -5,5 +5,6 @@ create table waypoints (
 	x integer not null,
 	z integer not null,
 	y integer not null,
-	color string not null
+	color string not null,
+	poiType string not null
 );

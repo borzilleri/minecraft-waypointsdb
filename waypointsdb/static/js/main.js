@@ -5,10 +5,10 @@ requirejs.config({
 		underscore: 'lib/lodash',
 		backbone: 'lib/backbone',
 		knockout: 'lib/knockout',
-		knockback: 'lib/knockback',
+		knockback: 'lib/knockback-dev',
 		text: 'lib/text',
 		bootstrap: 'lib/bootstrap',
-		template: window.SCRIPT_ROOT+'/template'
+		template: window.URL_ROOT+'/template'
 	},
 	shim: {
 		'backbone': {

@@ -10,7 +10,8 @@ function(_, Backbone) {
 			x: 0,
 			y: 64,
 			z: 0,
-			download: true
+			download: true,
+			poiType: 'none',
 		},
 		initialize: function() {
 			_(this).bindAll();

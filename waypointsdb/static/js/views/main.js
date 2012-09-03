@@ -1,14 +1,16 @@
 define([
 	'jquery', 'underscore', 'backbone',
 	'waypoints',
-	'views/point'
+	'views/point',
+	'bootstrap/modal'
 ],
 function($, _, Backbone, Collection, Point_View) {
 	return Backbone.View.extend({
 		el: $('body'),
 		events: {
 			'click .add': 'onAddPoint',
-			'click .download-points': 'onDownload'
+			'click .download-points': 'onDownload',
+			'click .help': 'onHelp'
 		},
 		initialize: function() {
 			_(this).bindAll();
@@ -48,7 +50,7 @@ function($, _, Backbone, Collection, Point_View) {
 			})).pluck('id');
 
 			$.ajax({
-					url:'download',
+					url: window.URL_ROOT.'/download',
 					contentType: 'application/json',
 					data: JSON.stringify(ids),
 					type: 'POST'
@@ -57,6 +59,9 @@ function($, _, Backbone, Collection, Point_View) {
 				window.location.pathname += 'download'+path;
 			});
 
+			return false;
+		},
+		onHelp: function() {
 			return false;
 		}
 	});

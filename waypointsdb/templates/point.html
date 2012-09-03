@@ -23,12 +23,8 @@
 			<div class="control-group">
 				<label class="control-label">Color</label>
 				<div class="controls">
-					<div class="input-append color" data-color-format="hex"
-						data-bind="attr: {'data-color': color}">
-						<input type="text" class="span2" data-bind="value:color">
-						<span class="add-on">
-							<i data-bind="style:{'background-color':color}"></i></span>
-					</div>
+					<input type="text" class="span2" maxlength="7"
+						data-bind="value:color">
 				</div>
 			</div>
 			<div class="control-group">
@@ -44,16 +40,23 @@
 						data-bind="value:z">
 						<span class="add-on">Z</span>
 					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">Altitude</label>
-				<div class="controls">
 					<div class="input-append">
 						<input class="span1" type="number" placeholder="y" max="256" min="1"
 						data-bind="value:y">
 						<span class="add-on">Y</span>
 					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Waypoint Type</label>
+				<div class="controls">
+					<select class="span2" data-bind="value:poiType">
+						<option value="none">Hidden</option>
+						<option value="dungeon">Dungeon</option>
+						<option value="outpost">Outpost</option>
+						<option value="poi">Point of Interest</option>
+						<option value="rail">Rail Station Stop</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-actions">

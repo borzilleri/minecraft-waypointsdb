@@ -8,6 +8,7 @@ from tempfile import mkstemp
 DEBUG = True
 DATABASE = 'data.db'
 SECRET_KEY = 'dev key'
+MARKERSDB = "markersDB.js"
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -40,6 +41,10 @@ def query_db(query, args=(), one=False):
 @app.route('/')
 def index():
     return render_template('index.html', scriptRoot = request.script_root)
+
+@app.route('/about')
+def about():
+    return render_template('about.html', scriptRoot = request.script_root)
 
 @app.route('/template/<path:template>')
 def js_template(template):
@@ -81,7 +86,7 @@ def api_point(pId):
     if point is None:
         return Response(status=404)
     else:
-        return Response(json.dumps(point), mimetype='application/json')
+        return ResponGse(json.dumps(point), mimetype='application/json')
 
 @app.route('/api/points', methods=['POST'])
 def api_create_point():
@@ -89,11 +94,13 @@ def api_create_point():
         return Response('Unsupported Media Type', status=415)
 
     data = request.json
-    g.db.execute('insert into waypoints (name,color,x,z,y) values (?,?,?,?,?)',
-        [data['name'],data['color'],data['x'],data['z'],data['y']])
+    g.db.execute('insert into waypoints (name,color,x,z,y,poiType) values (?,?,?,?,?)',
+        [data['name'],data['color'],data['x'],data['z'],data['y'],data['poiType']])
     g.db.commit()
 
     point = query_db('select * from waypoints where rowid=last_insert_rowid()',one=True)
+
+    build_poi();
     return Response(json.dumps(point), mimetype='application/json')
 
 @app.route('/api/points/<pId>', methods=['PUT'])
@@ -102,9 +109,11 @@ def api_update_point(pId):
         return Response('Unsupported Media Type', status=415)
 
     data = request.json
-    g.db.execute('update waypoints set name=?,color=?,x=?,z=?,y=? where id=?',
-            [data['name'],data['color'],data['x'],data['z'],data['y'],pId])
+    g.db.execute('update waypoints set name=?,color=?,x=?,z=?,y=?,poiType=? where id=?',
+            [data['name'],data['color'],data['x'],data['z'],data['y'],data['poiType'],pId])
     g.db.commit()
+
+    build_poi();
     return Response(json.dumps(data), status=200,mimetype='application/json')
 
 @app.route('/api/points/<pId>', methods=['DELETE'])
@@ -113,6 +122,48 @@ def api_delete_point(pId):
     g.db.commit()
     return Response(status=200)
 
+
+@app.route('/api/poi/build', methods=['PUT'])
+def build_poi():
+    points = query_db("select * from waypoints where poiType != 'none' order by poiType, name")
+
+    markers = dict(default=[
+        dict(displayName="Outposts",
+            groupName="default-outpost",
+            icon="/minecraft/map/icons/outpost.png",
+            createInfoWIndow="true"),
+        dict(displayName="Points of Interest",
+            groupName="default-poi",
+            icon="/minecraft/map/icons/poi.png",
+            createInfoWIndow="true"),
+        dict(displayName="Rail Station Stops",
+            groupName="default-rail",
+            icon="/minecraft/map/icons/rail.png",
+            createInfoWIndow="true"),
+        dict(displayName="Dungeons",
+            groupName="default-dungeon",
+            icon="/minecraft/map/icons/dungeon.png",
+            createInfoWIndow="true"),
+    ])
+
+    markersDB = dict()
+    for p in points:
+        dbKey = 'default-'+p['poiType']
+        if dbKey not in markersDB:
+            markersDB[dbKey] = dict(raw=[],name="",created="false")
+
+        markersDB[dbKey]['raw'].append(dict(
+            x=p['x'],y=p['y'],z=p['z'],
+            alt=p['name'],
+            icon="/minecraft/map/icons/%s.png"%p['poiType']))
+
+    f = open(app.config['MARKERSDB'], 'w')
+    f.write("var markersDB="+json.dumps(markersDB)+";");
+    f.close();
+    return Response();
+
+
 if __name__ == '__main__':
     app.run()
+
 
