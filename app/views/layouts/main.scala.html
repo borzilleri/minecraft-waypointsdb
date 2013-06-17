@@ -1,0 +1,22 @@
+@()(content: Html)
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="pragma" content="no-cache">
+		<title>Rampant I/O Minecraft Waypoints DB</title>
+
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/responsive.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+
+		<script>
+			window.wpdb = {};
+		</script>
+		<script data-main="@routes.Assets.at("javascripts/app")"
+		src="@routes.Assets.at("javascripts/vendor/require.js")"></script>
+	</head>
+	<body>
+		@content
+	</body>
+</html>

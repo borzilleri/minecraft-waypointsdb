@@ -1,0 +1,104 @@
+@layouts.main() {
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="/minecraft" class="brand">Rampant I/O</a>
+				<div class="btn-group text-center" data-toggle="buttons-checkbox">
+					<button type="button" class="btn js-filter-points" data-dimension="0">Overworld</button>
+					<button type="button" class="btn js-filter-points" data-dimension="-1">Nether</button>
+					<button type="button" class="btn js-filter-points" data-dimension="7">Twilight Forest</button>
+				</div>
+				<div class="btn-group pull-right">
+					<button type="button" class="btn btn-success js-add-point">
+						Add Waypoint</button>
+					<button type="button" class="btn btn-primary js-download">
+						Download Waypoints</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="page-content">
+		<div class="row">
+			<div class="span8 offset2 accordion" id="point-list"></div>
+		</div>
+	</div>
+
+	<script type="text/html">
+
+
+	</script>
+
+	<script type="text/html" id="point-template">
+		<div class="accordion-heading">
+			<div class="swatch" data-bind="style: {'background-color': color}"></div>
+			<a class="accordion-toggle collapsed"
+			data-bind="text: name, attr: {href: divIdHash}"
+			data-toggle="collapse" data-parent="#point-list" href="#"></a>
+			<button class="btn btn-small pull-right download"
+			data-bind="css: { 'btn-success': download, 'btn-danger': !download()}">
+				<i class="icon-download"></i>
+			</button>
+			<a data-bind="attr: {href: mapUrl}" target="_blank"
+			class="btn btn-small btn-info pull-right"
+			>Map <i class="icon-external-link"></i></a>
+		</div>
+		<div class="accordion-body collapse" data-bind="attr: {id: divId}">
+			<div class="accordion-inner">
+				<form class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label">Name</label>
+						<div class="controls">
+							<input type="text" data-bind="value: name">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Color</label>
+						<div class="controls">
+							<input type="text" class="span2" maxlength="7"
+							data-bind="value:color">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Coordinates</label>
+						<div class="controls">
+							<div class="input-append">
+								<input class="input-small" type="number" placeholder="x"
+								data-bind="value:x">
+								<span class="add-on">X</span>
+							</div>
+							<div class="input-append">
+								<input class="input-small" type="number" placeholder="z"
+								data-bind="value:z">
+								<span class="add-on">Z</span>
+							</div>
+							<div class="input-append">
+								<input class="span1" type="number" placeholder="y" max="256" min="1"
+								data-bind="value:y">
+								<span class="add-on">Y</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Waypoint Type</label>
+						<div class="controls">
+							<select class="span2" data-bind="value:poiType">
+								<option value="none">Hidden</option>
+								<option value="dungeon">Dungeon</option>
+								<option value="outpost">Outpost</option>
+								<option value="poi">Point of Interest</option>
+								<option value="rail">Rail Station Stop</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary save">Save</button>
+						<button type="button" class="btn btn cancel"
+						data-bind="visible: id">Cancel</button>
+						<button type="button"
+						class="btn btn-danger pull-right delete">Delete</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</script>
+}
