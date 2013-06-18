@@ -7,5 +7,7 @@ POST    /api/points                 @controllers.API.save(id: String = null)
 PUT     /api/points/:id             @controllers.API.save(id: String)
 DELETE  /api/points/:id             @controllers.API.destroy(id: String)
 
+GET     /routes.js                  controllers.Javascript.routes()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

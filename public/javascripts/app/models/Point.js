@@ -2,27 +2,27 @@ define(function(require) {
 	var Backbone = require('backbone');
 	var routes = require('/routes.js');
 
-	var model = Backbone.Model.extend({
+	var Model = Backbone.Model.extend({
 		defaults: {
-			name: "",
+			name: "New Waypoint",
 			color: "#FFFFFF",
 			x: 0,
 			z: 0,
 			y: 64,
-			poiType: "", // poi, rail-station, base, ??
+			poiType: "outpost", // poi, rail-station, base, ??
 			dimension: 0
 		}
 	});
 
-	var collection = Backbone.Collection.extend({
+	var Collection = Backbone.Collection.extend({
 		url: function() {
-			return routes.list().url
+			return routes.API.list().url
 		},
-		model: model
+		model: Model
 	});
 
 	return {
-		Item: model,
-		Collection: collection
+		Item: Model,
+		Collection: Collection
 	};
 });

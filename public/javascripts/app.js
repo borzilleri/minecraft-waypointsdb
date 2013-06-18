@@ -7,7 +7,7 @@ require.config({
 	}
 });
 
-require(['lib/console', 'jquery'], function($) {
+require(['jquery', 'lib/console'], function($) {
 	window.wpdb = window.wpdb || {};
 	$(function() {
 		require(["app/main"]);
