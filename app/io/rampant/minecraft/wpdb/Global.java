@@ -11,6 +11,9 @@ import models.Point;
 import play.Application;
 import play.GlobalSettings;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 /**
  * @author Jonathan Bozilleri
  */
@@ -26,40 +29,6 @@ public class Global extends GlobalSettings {
 
 	@Override
 	public void onStart(Application application) {
-		/**
-		 * FIXME: Abstract this out somewhere?
-		 *
-		 * This is sort of hacky. We probably want to initialize some database
-		 * data. This is a great place to *trigger* it, but not a great place to
-		 * keep it. meh.
-		 */
-
-		PointDAO dao = injector.getInstance(PointDAO.class);
-		Point p = dao.findByName("Home");
-		if( null == p ) {
-			p = new Point();
-			p.name = "Home";
-			p.color = "FF0000";
-			p.x = 10;
-			p.z = 20;
-			p.y = 75;
-			p.dimension = "0";
-
-			dao.save(p);
-		}
-
-		p = dao.findByName("Away");
-		if( null == p ) {
-			p = new Point();
-			p.name = "Away";
-			p.color = "00FF00";
-			p.x = 30;
-			p.z = 40;
-			p.y = 24;
-			p.dimension = "0";
-
-			dao.save(p);
-		}
 
 	}
 

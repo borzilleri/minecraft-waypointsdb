@@ -22,5 +22,4 @@ public class PointDAO extends BasicDAO<Point, ObjectId> {
 	public models.Point get(String id) {
 		return get(new ObjectId(id));
 	}
-
 }

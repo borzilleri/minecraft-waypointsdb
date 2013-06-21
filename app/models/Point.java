@@ -6,10 +6,14 @@ import org.bson.types.ObjectId;
 import org.codehaus.jackson.JsonNode;
 import play.libs.Json;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity("points")
 public class Point {
 	@Id
-	private ObjectId id;
+	public ObjectId _id;
+	public String id;
 	public String name;
 	public String color;
 
@@ -38,11 +42,11 @@ public class Point {
 	 * 7 -> Twilight Forest
 	 * ?? -> Wyvern Lair
 	 */
-	public String dimension;
+	public List<String> dimension;
 
 	public String getId() {
-		if( null != id ) {
-			return id.toString();
+		if( null != _id ) {
+			return _id.toString();
 		}
 		return null;
 	}
