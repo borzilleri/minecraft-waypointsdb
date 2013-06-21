@@ -9,8 +9,8 @@ define(function(require) {
 			x: 0,
 			z: 0,
 			y: 64,
-			poiType: "outpost", // poi, rail-station, base, ??
-			dimension: 0
+			poiType: "outpost",
+			dimension: [0]
 		}
 	});
 

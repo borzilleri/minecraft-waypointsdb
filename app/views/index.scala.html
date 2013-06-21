@@ -50,7 +50,7 @@
 					<div class="control-group">
 						<label class="control-label">Color</label>
 						<div class="controls">
-							<input type="text" class="span2" name="color">
+							<input type="text" class="span2 colorpicker" name="color">
 						</div>
 					</div>
 					<div class="control-group">
@@ -73,13 +73,30 @@
 					<div class="control-group">
 						<label class="control-label">Waypoint Type</label>
 						<div class="controls">
-							<select class="span2">
+							<select class="span2" name="poiType">
 								<option value="none">Hidden</option>
 								<option value="dungeon">Dungeon</option>
-								<option value="outpost">Outpost</option>
+								<option value="outpost">Player Outpost</option>
 								<option value="poi">Point of Interest</option>
-								<option value="rail">Rail Station Stop</option>
+								<option value="rail">Rail Junction Stop</option>
 							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Dimensions</label>
+						<div class="controls">
+							<label>
+								<input type="checkbox" name="dimension" value="0">
+								Overworld
+							</label>
+							<label>
+								<input type="checkbox" name="dimension" value="-1">
+								Nether
+							</label>
+							<label>
+								<input type="checkbox" name="dimension" value="7">
+								Twilight Forest
+							</label>
 						</div>
 					</div>
 					<div class="form-actions">
