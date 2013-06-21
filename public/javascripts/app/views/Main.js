@@ -29,8 +29,6 @@ define(function(require) {
 				newModel = new Point.Item();
 				this.collection.add(new Point.Item());
 			}
-
-
 		},
 		onFilterPoints: function(e) {
 			e.preventDefault();

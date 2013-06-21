@@ -8,6 +8,9 @@ define(function(require) {
 		id: 'point-list',
 		appendHtml: function(collectionView, itemView, index) {
 			collectionView.$el.prepend(itemView.el);
+			if( itemView.model.isNew() ) {
+				//TODO: Put expand-accordion logic here
+			}
 		}
 	});
 });
