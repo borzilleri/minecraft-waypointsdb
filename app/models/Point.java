@@ -7,13 +7,11 @@ import org.codehaus.jackson.JsonNode;
 import play.libs.Json;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity("points")
 public class Point {
 	@Id
-	public ObjectId _id;
-	public String id;
+	private ObjectId id;
 	public String name;
 	public String color;
 
@@ -44,9 +42,13 @@ public class Point {
 	 */
 	public List<String> dimension;
 
+	public void setId(String id) {
+		this.id = new ObjectId(id);
+	}
+
 	public String getId() {
-		if( null != _id ) {
-			return _id.toString();
+		if( null != id ) {
+			return id.toString();
 		}
 		return null;
 	}

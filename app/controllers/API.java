@@ -38,17 +38,12 @@ public class API extends Controller {
 		Form<Point> form = Form.form(Point.class).bindFromRequest();
 		// TODO: Do we need both of these?
 		if( form.hasErrors() || form.hasGlobalErrors() ) {
+			// TODO: Fix this
 			return badRequest("there were errors");
 		}
 
 		Point p = form.get();
-		/**
-		 * TODO: This isn't working right.
-		 * Objects coming in with an existent id are not being updated, a new
-		 * object is being created.
-		 *
-		 * Possibly also attempt to use atomic updates of some sort?
-		 */
+		// TODO: Maybe do field-based updates?
 		dao.save(p);
 		return ok(p.toJson());
 	}
