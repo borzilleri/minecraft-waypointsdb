@@ -12,15 +12,12 @@ define(function(require) {
 			poiType: "outpost",
 			dimension: [0],
 			// These properties are used strictly at the JS layer.
-			active: false,
 			download: true
 		}
 	});
 
 	var Collection = Backbone.Collection.extend({
-		url: function() {
-			return routes.API.list().url
-		},
+		url: routes.API.list().url,
 		model: Model
 	});
 

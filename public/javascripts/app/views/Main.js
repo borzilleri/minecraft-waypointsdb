@@ -4,6 +4,7 @@ define(function(require) {
 	var Marionette = require('backbone.marionette');
 	var ListView = require('./PointList');
 	var Point = require('app/models/Point');
+	var routes = require('/routes.js');
 
 	return Marionette.Layout.extend({
 		collection: null,
@@ -37,7 +38,20 @@ define(function(require) {
 		},
 		onDownloadPoints: function(e) {
 			e.preventDefault();
-			// TODO: Implement this
+
+			var ids = _(this.collection.filter(function(model) {
+				return model.id && model.get('download');
+			})).pluck('id');
+
+			$.ajax({
+				url: routes.API.buildFile().url,
+				contentType: 'application/json',
+				data: JSON.stringify(ids.value()),
+				type: 'POST'
+			});
+//				.done(function(file) {
+//					window.location = routes.Application.download(file).url;
+//				});
 		}
 	});
 });

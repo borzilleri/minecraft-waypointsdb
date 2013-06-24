@@ -5,17 +5,17 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<a href="/minecraft" class="brand">Rampant I/O</a>
+					<a href="/minecraft" class="brand">Rampant I/O Minecraft</a>
 					<div class="btn-group">
 						<button type="button" class="btn btn-success js-add-point">
-							Add Waypoint</button>
+							Add Point</button>
 						<button type="button" class="btn btn-primary js-download">
-							Download Waypoints</button>
+							Download Selected</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container" id="page-content">
+		<div class="container-fluid" id="page-content">
 			<div class="row-fluid">
 				<div class="span8" id="list-view"></div>
 			</div>
@@ -33,45 +33,51 @@
 		<div class="accordion-body collapse">
 			<div class="accordion-inner">
 				<form class="form-horizontal">
-					<div class="control-group">
+					<div class="control-group group-name">
 						<label class="control-label">Name</label>
 						<div class="controls">
-							<input type="text" name="name">
+							<input type="text" name="name" class="input-large">
+							<span class="help-inline"></span>
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="control-group group-color">
 						<label class="control-label">Color</label>
 						<div class="controls">
-							<input type="text" class="span2 colorpicker" name="color">
+							<input type="text" class="span3 color-picker" name="color">
+							<span class="help-inline"></span>
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="control-group group-x group-y group-z">
 						<label class="control-label">Coordinates</label>
 						<div class="controls">
 							<div class="input-append">
 								<input class="input-small" name="x_coord" type="number" placeholder="x">
 								<span class="add-on">X</span>
+								<span class="help-inline"></span>
 							</div>
 							<div class="input-append">
 								<input class="input-small" name="z_coord" type="number" placeholder="z">
 								<span class="add-on">Z</span>
+								<span class="help-inline"></span>
 							</div>
 							<div class="input-append">
-								<input class="span1" name="y_coord" type="number" placeholder="y" max="256" min="1">
+								<input class="input-small" name="y_coord" type="number" placeholder="y" max="256" min="1">
 								<span class="add-on">Y</span>
+								<span class="help-inline"></span>
 							</div>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label">Waypoint Type</label>
+					<div class="control-group group-poiType">
+						<label class="control-label">Type</label>
 						<div class="controls">
-							<select class="span2" name="poiType">
+							<select class="input-medium" name="poiType">
 								<option value="none">Hidden</option>
 								<option value="dungeon">Dungeon</option>
 								<option value="outpost">Player Outpost</option>
 								<option value="poi">Point of Interest</option>
 								<option value="rail">Rail Junction Stop</option>
 							</select>
+							<span class="help-inline"></span>
 						</div>
 					</div>
 					<div class="control-group">
@@ -91,6 +97,7 @@
 							</label>
 						</div>
 					</div>
+					<div class="alert-view"></div>
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary save">Save</button>
 						<button type="button" class="btn btn cancel">Cancel</button>
