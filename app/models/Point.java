@@ -4,6 +4,7 @@ import com.github.jmkgreen.morphia.annotations.Entity;
 import com.github.jmkgreen.morphia.annotations.Id;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.JsonNode;
+import play.data.validation.Constraints;
 import play.libs.Json;
 
 import java.util.List;
@@ -12,27 +13,39 @@ import java.util.List;
 public class Point {
 	@Id
 	private ObjectId id;
+
+	@Constraints.Required
 	public String name;
-	public String color;
+	public String color = "#FFFFFF";
 
 	/**
 	 * East/West.
 	 * Positive -> East
 	 * Negative -> West
 	 */
+	@Constraints.Required
 	public int x;
 	/**
 	 * North/South
 	 * Positive -> South
 	 * Negative -> North
 	 */
+	@Constraints.Required
 	public int z;
 	/**
 	 * Altitude
 	 */
+	@Constraints.Required
 	public int y;
 
-	public String poiType;
+	/**
+	 * Possible values:
+	 *
+	 *
+	 * TODO: Use an ENUM or something for this?
+	 */
+	public String poiType = "outpost";
+
 	/**
 	 * Dimension id
 	 * 0 -> Overworld
