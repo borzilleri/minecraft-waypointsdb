@@ -13,7 +13,10 @@ object Javascript extends Controller {
 					controllers.routes.javascript.API.list,
 					controllers.routes.javascript.API.get,
 					controllers.routes.javascript.API.save,
-					controllers.routes.javascript.API.destroy
+					controllers.routes.javascript.API.destroy,
+					controllers.routes.javascript.API.buildFile,
+
+					controllers.routes.javascript.Application.download
 				)
 				Ok(
 					s"define(function () { $jsRoutes; return routes.controllers; });"

@@ -30,16 +30,13 @@ public class API extends Controller {
 	}
 
 	public Result save(String id) {
-		// FIXME: This feels inelegant. Is there a better way?
 		if( null != id && null == dao.get(id) ) {
 			return notFound();
 		}
 
 		Form<Point> form = Form.form(Point.class).bindFromRequest();
-		// TODO: Do we need both of these?
-		if( form.hasErrors() || form.hasGlobalErrors() ) {
-			// TODO: Fix this
-			return badRequest("there were errors");
+		if( form.hasErrors() ) {
+			return badRequest(form.errorsAsJson());
 		}
 
 		Point p = form.get();
@@ -54,6 +51,10 @@ public class API extends Controller {
 			return notFound();
 		}
 		dao.delete(p);
+		return ok();
+	}
+
+	public Result buildFile() {
 		return ok();
 	}
 }

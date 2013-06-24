@@ -9,4 +9,7 @@ public class Application extends Controller {
 		return ok(views.html.index.render());
 	}
 
+	public Result download(String file) {
+		return ok();
+	}
 }
