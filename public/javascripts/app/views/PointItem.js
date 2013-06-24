@@ -121,6 +121,7 @@ define(function(require) {
 				message: "WayPoint saved successfully!",
 				type: "success"
 			}));
+			setTimeout(this.clearErrors, 3000);
 		},
 		onError: function(jqXHR) {
 			var error;
