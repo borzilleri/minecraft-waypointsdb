@@ -40,8 +40,8 @@ public class Point {
 
 	/**
 	 * Possible values:
-	 *
-	 *
+	 * <p/>
+	 * <p/>
 	 * TODO: Use an ENUM or something for this?
 	 */
 	public String poiType = "outpost";
@@ -68,5 +68,45 @@ public class Point {
 
 	public JsonNode toJson() {
 		return Json.toJson(this);
+	}
+
+	/**
+	 * name:home,x:-92,z:236,y:65,enabled:true,red:0.0,green:1.0,blue:0.0,suffix:,world:,dimensions:-1#0#
+	 * name:Away,x:-89,z:370,y:71,enabled:true,red:0.9577651,green:0.99486566,blue:0.9250362,suffix:,world:,dimensions:-1#0#
+	 *
+	 * @return String representation for use in .points file
+	 */
+	public String toPointString() {
+		StringBuilder sb = new StringBuilder();
+
+		// Point Name
+		sb.append("name:").append(name);
+
+		// Point Coordinates
+		sb.append(",x:").append(x);
+		sb.append(",z:").append(z);
+		sb.append(",y:").append(y);
+
+		// Point visibility
+		// TODO: Do we want to implement this?
+		sb.append(",enabled:").append("true");
+
+		// Point Color
+		// TODO: Convert hex to these floats
+		sb.append(",red:").append("1.0");
+		sb.append(",green:").append("1.0");
+		sb.append(",blue:").append("1.0");
+
+		// TODO: What are these?
+		sb.append(",suffix:").append("");
+		sb.append(",world:").append("");
+
+		// Point Dimensions
+		sb.append(",dimensions:");
+		for( String dim : dimension ) {
+			sb.append(dim).append("#");
+		}
+
+		return sb.append("\n").toString();
 	}
 }
