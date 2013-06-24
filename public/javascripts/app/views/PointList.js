@@ -6,11 +6,16 @@ define(function(require) {
 		itemView: PointView,
 		className: 'accordion',
 		id: 'point-list',
+		collectionEvents: {
+			'point:activate': 'onPointActivated'
+		},
 		appendHtml: function(collectionView, itemView, index) {
 			collectionView.$el.prepend(itemView.el);
-			if( itemView.model.isNew() ) {
-				//TODO: Put expand-accordion logic here
-			}
+		},
+		onPointActivated: function(cid) {
+			this.children.each(function(view) {
+				view.togglePoint(cid);
+			});
 		}
 	});
 });

@@ -10,7 +10,10 @@ define(function(require) {
 			z: 0,
 			y: 64,
 			poiType: "outpost",
-			dimension: [0]
+			dimension: [0],
+			// These properties are used strictly at the JS layer.
+			active: false,
+			download: true
 		}
 	});
 

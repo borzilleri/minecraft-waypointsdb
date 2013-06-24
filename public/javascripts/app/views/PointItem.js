@@ -15,6 +15,9 @@ define(function(require) {
 			'click .delete': 'onDelete',
 			'colorChange .colorpicker': 'onColorChange'
 		},
+		ui: {
+			accordion: '.accordion-body'
+		},
 		bindings: {
 			'.point-name': 'name',
 			'.swatch': {
@@ -58,8 +61,16 @@ define(function(require) {
 		},
 		initialize: function() {
 			_(this).bindAll('makeIdAttr', 'onSaveSuccess', 'onSaveFail',
-				'onSaveComplete');
+				'onSaveComplete', 'togglePoint');
 			this.on('close', this.unstickit);
+		},
+		togglePoint: function(cid) {
+			if( cid === this.model.cid ) {
+				this.ui.accordion.collapse('show');
+			}
+			else if (this.ui.accordion.hasClass('in') ) {
+				this.ui.accordion.collapse('hide');
+			}
 		},
 		makeIdAttr: function(objId) {
 			return 'point_' + objId;
@@ -70,7 +81,7 @@ define(function(require) {
 		},
 		onToggleDownload: function(e) {
 			e.preventDefault();
-			$(e.target).toggleClass('btn-success btn-danger');
+			$(e.currentTarget).toggleClass('btn-success btn-danger');
 		},
 		onColorChange: function(e) {
 			this.$('.swatch').backgroundColor(e.color.toHex());
@@ -85,6 +96,7 @@ define(function(require) {
 			e.preventDefault();
 			this.model.save();
 			// .success, .done, .fail callbacks.
+			// TODO: Implement this
 		},
 		onSaveSuccess: function() {
 

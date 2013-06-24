@@ -1,5 +1,6 @@
 define(function(require) {
 	require('bootstrap/collapse');
+	require('bootstrap/button');
 	var Marionette = require('backbone.marionette');
 	var ListView = require('./PointList');
 	var Point = require('app/models/Point');
@@ -15,6 +16,9 @@ define(function(require) {
 			'click .js-download': 'onDownloadPoints',
 			'click .js-filter-points': 'onFilterPoints'
 		},
+		ui: {
+			filters: '#filter-buttons'
+		},
 		onRender: function() {
 			this.points.show(new ListView({
 				collection: this.collection
@@ -25,16 +29,15 @@ define(function(require) {
 			var newModel = this.collection.find(function(m) {
 				return m.isNew();
 			});
-			if(!newModel) {
+			if( !newModel ) {
 				newModel = new Point.Item();
-				this.collection.add(new Point.Item());
+				this.collection.add(newModel);
 			}
-		},
-		onFilterPoints: function(e) {
-			e.preventDefault();
+			this.collection.trigger('point:activate', newModel.cid);
 		},
 		onDownloadPoints: function(e) {
 			e.preventDefault();
+			// TODO: Implement this
 		}
 	});
 });
