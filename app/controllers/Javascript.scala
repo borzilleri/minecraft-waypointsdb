@@ -16,7 +16,7 @@ object Javascript extends Controller {
 					controllers.routes.javascript.API.destroy,
 					controllers.routes.javascript.API.buildFile,
 
-					controllers.routes.javascript.Application.download
+					controllers.routes.javascript.Main.download
 				)
 				Ok(
 					s"define(function () { $jsRoutes; return routes.controllers; });"

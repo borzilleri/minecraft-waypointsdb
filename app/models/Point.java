@@ -11,6 +11,8 @@ import java.util.List;
 
 @Entity("points")
 public class Point {
+	public static final String CACHE_PREFIX = "point_";
+
 	@Id
 	private ObjectId id;
 

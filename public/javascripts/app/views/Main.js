@@ -30,7 +30,7 @@ define(function(require) {
 			var newModel = this.collection.find(function(m) {
 				return m.isNew();
 			});
-			if( !newModel ) {
+			if(!newModel) {
 				newModel = new Point.Item();
 				this.collection.add(newModel);
 			}
@@ -48,10 +48,10 @@ define(function(require) {
 				contentType: 'application/json',
 				data: JSON.stringify(ids.value()),
 				type: 'POST'
-			});
-//				.done(function(file) {
-//					window.location = routes.Application.download(file).url;
-//				});
+			})
+				.done(function(file) {
+					window.location = routes.Main.download(file).url;
+				});
 		}
 	});
 });

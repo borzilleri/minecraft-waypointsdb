@@ -76,7 +76,7 @@ public class API extends Controller {
 		String pointsFile = sb.toString();
 		String id = Hashing.goodFastHash(32).hashString(pointsFile, Charsets.UTF_8).toString();
 
-		Cache.set("point_" + id, pointsFile, 60*5);
+		Cache.set(Point.CACHE_PREFIX + id, pointsFile, 60*5);
 		return ok(id);
 	}
 }

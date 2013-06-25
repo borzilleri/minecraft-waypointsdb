@@ -1,6 +1,6 @@
 # Home page
-GET     /                           @controllers.Application.index()
-GET     /download/:file             @controllers.Application.download(file: String)
+GET     /                           @controllers.Main.index()
+GET     /download/:file             @controllers.Main.download(file: String)
 
 GET     /routes.js                  controllers.Javascript.routes()
 
