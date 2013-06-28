@@ -13,17 +13,20 @@ import play.GlobalSettings;
  * @author Jonathan Bozilleri
  */
 public class Global extends GlobalSettings {
-	static Injector injector;
+	private static final Injector INJECTOR = createInjector();
+
+	private static Injector createInjector() {
+		return Guice.createInjector(new Play(), new MongoDB());
+	}
 
 	@Override
 	public void beforeStart(Application application) {
 		MorphiaLoggerFactory.reset();
 		MorphiaLoggerFactory.registerLogger(SLF4JLogrImplFactory.class);
-		injector = Guice.createInjector(new Play(), new MongoDB());
 	}
 
 	@Override
 	public <A> A getControllerInstance(Class<A> aClass) throws Exception {
-		return injector.getInstance(aClass);
+		return INJECTOR.getInstance(aClass);
 	}
 }
