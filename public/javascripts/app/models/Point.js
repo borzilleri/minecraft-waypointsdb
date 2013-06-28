@@ -1,6 +1,6 @@
 define(function(require) {
 	var Backbone = require('backbone');
-	var routes = require('/routes.js');
+	var routes = require('routes');
 
 	var Model = Backbone.Model.extend({
 		defaults: {

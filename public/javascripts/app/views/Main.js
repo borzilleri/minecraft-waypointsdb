@@ -4,7 +4,7 @@ define(function(require) {
 	var Marionette = require('backbone.marionette');
 	var ListView = require('./PointList');
 	var Point = require('app/models/Point');
-	var routes = require('/routes.js');
+	var routes = require('routes');
 
 	return Marionette.Layout.extend({
 		collection: null,
